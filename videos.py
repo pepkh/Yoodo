@@ -41,7 +41,11 @@ def send_titles_to_cohere(titles, cohere_api_key):
     # This is a placeholder function; you need to replace it with the actual API integration
     return titles[0]  # Just returning the first title as a placeholder
 
-# Example usage
+def get_embedded_link(video_link):
+    # Convert the regular YouTube link to an embedded link
+    # Example: https://www.youtube.com/watch?v=VIDEO_ID -> https://www.youtube.com/embed/VIDEO_ID
+    return video_link.replace("/watch?v=", "/embed/")
+
 api_key = "AIzaSyBEIpSazJA-yfulAQE0IO0RsXRmQP-rOV4"
 cohere_api_key = "YOUR_COHERE_API_KEY"
 keywords = "yoga pose tutorial"
@@ -52,7 +56,7 @@ videos = search_youtube_videos(api_key, keywords, max_results)
 best_video = choose_best_video(videos, cohere_api_key)
 
 if best_video:
-    print(f"The best video is: {best_video['title']} - {best_video['link']}")
+    embedded_link = get_embedded_link(best_video['link'])
+    print(f"The best video is: {best_video['title']} - {embedded_link}")
 else:
     print("No videos found.")
-
