@@ -30,7 +30,10 @@ l_1 = cohere_recommendations_text.split(":")
 l_2 = cohere_recommendations_text.split(":")
 l_3 = cohere_recommendations_text.split(":")
 first_pose = l_1[0].split(".")[1]
-second_pose = l_2[0].split(".")[1]
+second_pose = l_2[3].split(".")[1]
 third_pose = l_3[0].split(".")[1]
+print(first_pose)
+print(second_pose)
+print(third_pose)
 
 
