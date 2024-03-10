@@ -1,0 +1,13 @@
+.navbar {
+    background-color: #33CAAF; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50vh; 
+    max-height: 100px; 
+    color: white; 
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
