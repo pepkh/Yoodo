@@ -1,4 +1,5 @@
 import requests
+import recommendations
 
 def search_youtube_videos(api_key, keywords, max_results=5):
     url = "https://www.googleapis.com/youtube/v3/search"
@@ -48,15 +49,33 @@ def get_embedded_link(video_link):
 
 api_key = "AIzaSyBEIpSazJA-yfulAQE0IO0RsXRmQP-rOV4"
 cohere_api_key = "YOUR_COHERE_API_KEY"
-keywords = "yoga pose tutorial"
+keyword1 = recommendations.first_pose
+keyword2 = recommendations.second_pose
+keyword3 = recommendations.third_pose
 max_results = 5
 
-videos = search_youtube_videos(api_key, keywords, max_results)
+video1 = search_youtube_videos(api_key, keyword1, max_results)
+video2 = search_youtube_videos(api_key, keyword2, max_results)
+video3 = search_youtube_videos(api_key, keyword3, max_results)
 
-best_video = choose_best_video(videos, cohere_api_key)
+best_video1 = choose_best_video(video1, cohere_api_key)
+best_video2 = choose_best_video(video2, cohere_api_key)
+best_video3 = choose_best_video(video3, cohere_api_key)
 
-if best_video:
-    embedded_link = get_embedded_link(best_video['link'])
-    print(f"The best video is: {best_video['title']} - {embedded_link}")
+if best_video1:
+    embedded_link1 = get_embedded_link(best_video1['link'])
+    print(f"The best video is: {best_video1['title']} - {embedded_link1}")
+else:
+    print("No videos found.")
+
+if best_video2:
+    embedded_link2 = get_embedded_link(best_video2['link'])
+    print(f"The best video is: {best_video2['title']} - {embedded_link2}")
+else:
+    print("No videos found.")
+
+if best_video3:
+    embedded_link3 = get_embedded_link(best_video3['link'])
+    print(f"The best video is: {best_video3['title']} - {embedded_link3}")
 else:
     print("No videos found.")
