@@ -5,7 +5,7 @@ export const NavBar = () => {
     return (
         <div className="navbar">
             {/* icon and main options */}
-            <img src={logo} alt="" width={220} height={150}></img>
+            <img src={logo} alt="" height={150}></img>
         </div>
     );
 };
