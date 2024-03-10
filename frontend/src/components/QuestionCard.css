@@ -1,0 +1,80 @@
+.question-card {
+    background-color: #87DFCF; /* This is a soft green background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Simple shadow */
+    padding: 10px; /* Spacing inside the card */
+    margin: 10px; /* Spacing outside the card */
+    gap: 10px;
+    width: 60%;
+    align-items: center;
+}
+
+.question-card p {
+    margin: 0;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+}
+
+.question-card input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.question-card input[type="text"] {
+    flex-grow: 1;
+    margin: 5px;
+}
+
+.available-btn{
+    border: 1px;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.disabled-btn {
+    background-color: #c1c0c0; /* Gray out the button */
+    color: #666;
+    cursor: not-allowed;
+    border: 1px;
+    padding: 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.remove-btn {
+    margin-left: 10px;
+    cursor: pointer;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Style adjustments for the input group for better alignment and spacing */
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.question-input {
+    flex-grow: 1; /* Make input take up available space */
+    margin-right: 8px; /* Spacing between input and remove button */
+}
+
