@@ -15,10 +15,11 @@ export const Home = () => {
     const [inputValues2, setInputValues2] = useState(['']);
 
     const handleSubmit = () => {
-        // Example action: log input values from both questions
+        // Log input values from both questions
         console.log(inputValues1, inputValues2);
-        navigate("/letsyoga");
+        navigate("/letsyoga", { state: { moods: inputValues1, healthConditions: inputValues2 } });
     };
+    
 
     return (
         <div>        
