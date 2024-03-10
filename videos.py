@@ -74,6 +74,7 @@ if best_video2:
 else:
     print("No videos found.")
 
+
 if best_video3:
     embedded_link3 = get_embedded_link(best_video3['link'])
     print(f"The best video is: {best_video3['title']} - {embedded_link3}")
