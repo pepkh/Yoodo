@@ -85,7 +85,7 @@ import requests
 import recommendations
 import cohere
 
-COHERE_KEY = "your cohere key"
+COHERE_KEY = "rrtLFlHZgdlrIJLMb1svB8Khu57ft5aljM34Bizi"
 co = cohere.Client(COHERE_KEY)
 
 def generate_text(prompt, temp=0):
@@ -117,11 +117,11 @@ def search_youtube_videos(api_key, keywords, max_results=5):
         "type": "video",
         "maxResults": max_results,
         "key": api_key,
-    }
-
+        }
+    
     response = requests.get(url, params=params)
     data = response.json()
-
+    
     # Extract video information from the response
     video_links = []
     for item in data.get("items", []):
@@ -130,6 +130,7 @@ def search_youtube_videos(api_key, keywords, max_results=5):
         video_links.append({"title": video_title, "link": f"https://www.youtube.com/watch?v={video_id}"})
 
     return video_links
+
 
 def choose_best_video(video_links, cohere_api_key):
     # Assuming Cohere API takes a list of texts and returns the best one
@@ -147,6 +148,14 @@ keyword1 = recommendations.first_pose
 keyword2 = recommendations.second_pose
 keyword3 = recommendations.third_pose
 max_results = 5
+
+videos1 = search_youtube_videos(api_key, keyword1, max_results)
+videos2 = search_youtube_videos(api_key, keyword2, max_results)
+videos3 = search_youtube_videos(api_key, keyword3, max_results)
+
+print(len(videos1))
+print(len(videos2))
+print(len(videos3))
 
 # Search and choose the best video for each keyword
 best_video1 = choose_best_video(search_youtube_videos(api_key, keyword1, max_results), cohere_api_key)
