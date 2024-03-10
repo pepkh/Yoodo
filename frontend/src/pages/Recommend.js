@@ -1,20 +1,26 @@
 import { useNavigate } from 'react-router-dom'
 import {NavBar} from '../components/NavBar'
-
 import { YogaCard } from '../components/YogaCard';
 
 const dummyList = [
     {
-        title: "Bird of Paradise",
-        benefit:"Increases the flexibility of the spine and back and stretches the shoulders. Strengthens the legs. Increases flexibility of the hip and knee joints. Improves balance. Opens the groin. Stretches the hamstrings.",
-        link: "https://www.youtube.com/watch?v=wIJzVgTTVew&ab_channel=AloMoves-OnlineYoga%26FitnessVideos"
+        title: "Cat-cow pose (marjaryasana-bitilasana)",
+        benefit:"Cat-Cow pose may help relieve menstrual cramps by promoting blood flow to the pelvic region, while its rhythmic flow can have a calming effect on the nervous system, potentially easing emotional distress during menstruation..",
+        link: "https://www.youtube.com/embed/kqnua4rHVVA?si=pS8f1bJNQgWJumAP"
     },
     {
-        title: "Big Toe",
-        benefit:"Lengthens and strengthens the back of the legs.",
-        link: "https://www.youtube.com/watch?v=kcRs6Bm4kFo&ab_channel=YogaWithTim"
-}
+        title: "Child's Pose - Balasana",
+        benefit:"Child's Pose may alleviate menstrual cramps by stretching the lower back and pelvic area, while its restorative nature and deep breathing can help reduce emotional distress and promote a calming effect. To practice, start in tabletop position, sit back on your heels, extend arms, and focus on slow, deep breaths for relaxation.",
+        link: "https://www.youtube.com/embed/srLgwheLnmc?si=-qOVVbcKkloKo7lP"
+    },
+    {
+        title: "Lion's Pose - Simhasana",
+        benefit:"Lion's Pose, with its forceful breath and expressive release, may alleviate period pain by reducing tension and offer emotional relief, potentially easing feelings of sadness and annoyance.",
+        link: "https://www.youtube.com/embed/lqHn0n_1O7A?si=2e5qvFIL36S5sRKP"
+    }
 ]
+
+
 
 export const Recommendation = () => {
     const navigate = useNavigate();
