@@ -1,7 +1,7 @@
 import React from 'react';
 import './QuestionCard.css';
 
-export const QuestionCard = ({ question, inputValues, setInputValues }) => {
+export const QuestionCard = ({ question, description, inputValues, setInputValues }) => {
     const handleAddInput = () => {
         if (inputValues.length < 3) {
             setInputValues([...inputValues, '']); // Add another empty input to the array
@@ -22,12 +22,13 @@ export const QuestionCard = ({ question, inputValues, setInputValues }) => {
 
     return (
         <div className="question-card">
-            <p>{question}</p>
+            <p className='p'>{question}</p>
             {inputValues.map((input, index) => (
                 <div key={index} className="input-group" style={{ display: 'flex', padding: "5px", alignItems: 'center' }}>
                     <input
                         type="text"
                         value={input}
+                        placeholder={description}
                         onChange={(event) => handleInputChange(index, event)}
                         className="question-input"
                     />
