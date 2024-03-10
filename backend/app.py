@@ -1,38 +1,45 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS  # Import CORS
+from quart import Quart, jsonify, request
+from quart_cors import cors
+ # Ensure you have quart-cors installed for CORS support
 import re
-import recommendations  # Import your recommendations module
-from videos import search_youtube_videos, get_embedded_link
+import recommendations  # Ensure this module is adapted for async as needed
+from videos import search_youtube_videos, get_embedded_link  # Adapted for async
+import asyncio
 
-app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+app = Quart(__name__)
+app = cors(app, allow_origin="*")
 
 @app.route('/generate_text', methods=['POST'])
 async def generate_text_route():
-    # Get mood and health condition arrays from query parameters
-    data = await request.get_json()
-    user_input_mood = ", ".join(data.get('user_input_mood', []))
-    user_input_health = ", ".join(data.get('user_input_health', []))
-    # Format the mood list into a single string if necessary
-    
-    # Construct the prompt based on the inputs
-    prompt = f"""I want to know 3 yoga poses if I have a health condition as {user_input_health} and my mood is {user_input_mood}. I want their benefit based on the mood and health condition. I also want the steps to perform the yoga pose. I always want it in an enumerated format like: 1. POSE_NAME: Benefit: Steps: STEPS"""
-    cohere_recommendations_text = await recommendations.generate_text(prompt, temp=0.5)
+    try:
+        data = await request.get_json()
+        user_input_mood = ", ".join(data.get('user_input_mood', []))
+        user_input_health = ", ".join(data.get('user_input_health', []))
 
-    poses = parse_cohere_text_to_poses(cohere_recommendations_text) 
-    results = []
-    api_key = "AIzaSyBEIpSazJA-yfulAQE0IO0RsXRmQP-rOV4"
+        prompt = f"""I want to know 3 yoga poses if I have a health condition as {user_input_health} and my mood is {user_input_mood}. I want their benefit based on the mood and health condition. I also want the steps to perform the yoga pose. I always want it in an enumerated format like: 1. POSE_NAME: Benefit: Steps: STEPS"""        
+        cohere_recommendations_text = await recommendations.generate_text(prompt, temp=0.5)
+
+        poses = parse_cohere_text_to_poses(cohere_recommendations_text) 
+        results = []
+        api_key = "AIzaSyBEIpSazJA-yfulAQE0IO0RsXRmQP-rOV4"
     
-    # Call the generate_text function from your recommendations module
-    for pose in poses:
-        videos = await search_youtube_videos(api_key, pose['title'], max_results=1)
-        if videos:
-            video_link = await get_embedded_link(videos[0]['link'])
-            pose['video_link'] = video_link  # Add video link to pose information
-        else:
-            pose['video_link'] = "No video found"
-        results.append(pose)
-    return jsonify(results)
+
+        tasks = [search_youtube_videos(api_key, pose['title'], 1) for pose in poses]  # Ensure search_youtube_videos is async
+        videos = await asyncio.gather(*tasks)
+
+        for pose, video in zip(poses, videos):
+            if video:
+                pose['video_link'] = get_embedded_link(video[0]['link'])
+            else:
+                pose['video_link'] = "No video found"
+            results.append(pose)
+        
+        return jsonify(results)
+    except Exception as e:
+        print(f"Error in generate_text_route: {e}")
+        return jsonify({"error": "An error occurred processing your request."}), 500
+
+
     # return jsonify([
     #     {
     #         'title': first_pose,

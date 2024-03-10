@@ -30,7 +30,7 @@ export const Recommendation = () => {
                 console.error('Fetching yoga poses failed:', error);
                 setIsLoading(false);  // Ensure loading is set to false even on error
             });
-    }, [location.state]);  // Add location.state to the dependency array if its content might change
+    }, []);  // Add location.state to the dependency array if its content might change
 
     return (
         <div style={{ display: "flex", flexDirection: "column" }}>
