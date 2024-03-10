@@ -36,7 +36,7 @@ export const Recommendation = () => {
         flexDirection: "column"}}>
             <NavBar/>
             <div style={listStyle}>
-            <h1>Here are {size} recommended yoga posts</h1>
+            <h1>Here are {size} recommended yoga poses</h1>
             {Object.entries(dummyList).map(([key, value]) => (
                 <YogaCard key={key} title={value.title} benefit={value.benefit} link={value.link} />
             ))}

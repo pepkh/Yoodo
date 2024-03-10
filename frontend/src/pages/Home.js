@@ -6,7 +6,7 @@ import { QuestionCard } from '../components/QuestionCard';
 export const Home = () => {
     const navigate = useNavigate();
     const question1 = "What's your mood today?";
-    const question2 = "Are there any specific Health Conditions?";
+    const question2 = "Are there any specific health conditions?";
 
     // State for input values for each question
     const [inputValues1, setInputValues1] = useState(['']);

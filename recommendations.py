@@ -15,7 +15,7 @@ def generate_text(prompt, temp=0):
         generated_text.append(event.text)
   return ''.join(generated_text)
 
-user_input_mood = ["happy", "excited"]
+user_input_mood = ["sad", "annoyed"]
 user_input_health = "period pain"
 
 prompt = f"""I want to know 3 yoga poses if I have a health condition as {user_input_health} and my mood is {user_input_mood}. I want their benefit based on the mood and health condition. I also want the steps to perform the yoga pose. I always want it in an enumerated format like: 1. POSE_NAME: Benefit: Steps: STEPS"""
@@ -34,16 +34,13 @@ first_pose = l_1[0].split(".")[1]
 second_pose = l_2[1].split(":")[0]
 third_pose = l_3[1].split(":")[0]
 
-description_1 = l_1[1].split("2")[0]
-# print(tmp)
-description_2 = tmp[1].split("3")[0]
-description_3 = temp_2[1]
+# description_1 = l_1[1].split("2")[0]
+# # print(tmp)
+# description_2 = tmp[1].split("3")[0]
+# description_3 = temp_2[1]
 # print(description_1)
-# print(first_pose)
-# print(second_pose)
-# print(third_pose)
+print(first_pose)
+print(second_pose)
+print(third_pose)
 # print(description_1)
 # print(description_2)
-
-
-
