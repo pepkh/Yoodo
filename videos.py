@@ -61,7 +61,7 @@ def search_youtube_videos(api_key, keywords, max_results=5):
 def get_embedded_link(video_link):
     return video_link.replace("/watch?v=", "/embed/")
 
-api_key = "AIzaSyBEIpSazJA-yfulAQE0IO0RsXRmQP-rOV4"
+api_key = "AIzaSyCASxWtiCMSsTb1Z63268R9341midscYb4"
 cohere_api_key = "rrtLFlHZgdlrIJLMb1svB8Khu57ft5aljM34Bizi"
 keyword1 = recommendations.first_pose
 keyword2 = recommendations.second_pose
