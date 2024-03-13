@@ -8,26 +8,27 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/generate_text', methods=['POST'])
-async def generate_text_route():
+def generate_text_route():
     # Get mood and health condition arrays from query parameters
-    data = await request.get_json()
+    data = request.get_json()
     user_input_mood = ", ".join(data.get('user_input_mood', []))
     user_input_health = ", ".join(data.get('user_input_health', []))
     # Format the mood list into a single string if necessary
     
     # Construct the prompt based on the inputs
     prompt = f"""I want to know 3 yoga poses if I have a health condition as {user_input_health} and my mood is {user_input_mood}. I want their benefit based on the mood and health condition. I also want the steps to perform the yoga pose. I always want it in an enumerated format like: 1. POSE_NAME: Benefit: Steps: STEPS"""
-    cohere_recommendations_text = await recommendations.generate_text(prompt, temp=0.5)
-
-    poses = parse_cohere_text_to_poses(cohere_recommendations_text) 
+    poses = recommendations.generate_text(prompt, temp=0.5)
     results = []
-    api_key = "AIzaSyBEIpSazJA-yfulAQE0IO0RsXRmQP-rOV4"
-    
+    api_key = "AIzaSyCASxWtiCMSsTb1Z63268R9341midscYb4"
+    print(poses)
     # Call the generate_text function from your recommendations module
     for pose in poses:
-        videos = await search_youtube_videos(api_key, pose['title'], max_results=1)
+        print(pose)
+        print(pose['title'])
+        videos =  search_youtube_videos(api_key, pose['title'], max_results=1,)
         if videos:
-            video_link = await get_embedded_link(videos[0]['link'])
+            print(videos[0]['link'])
+            video_link =  get_embedded_link(videos[0]['link'])
             pose['video_link'] = video_link  # Add video link to pose information
         else:
             pose['video_link'] = "No video found"
@@ -47,19 +48,19 @@ async def generate_text_route():
     #         'description': description_3,
     #     }
     # ])
-def parse_cohere_text_to_poses(text):
-    poses = []
-    # Split the text by "1.", "2.", and "3." to get individual pose descriptions
-    split_text = re.split(r'\n\d+\.', text)
-    for pose_text in split_text[1:]:  # Skip the first element, as it's before the first "1."
-        title_search = re.search(r'^(.*?):', pose_text)
-        title = title_search.group(1).strip() if title_search else "Unknown Pose"
+# def parse_cohere_text_to_poses(text):
+#     poses = []
+#     # Split the text by "1.", "2.", and "3." to get individual pose descriptions
+#     split_text = re.split(r'\n\d+\.', text)
+#     for pose_text in split_text[1:]:  # Skip the first element, as it's before the first "1."
+#         title_search = re.search(r'^(.*?):', pose_text)
+#         title = title_search.group(1).strip() if title_search else "Unknown Pose"
         
-        description_search = re.search(r'Use:(.*?)Steps:', pose_text, re.DOTALL)
-        description = description_search.group(1).strip() if description_search else "No description provided"
+#         description_search = re.search(r'Use:(.*?)Steps:', pose_text, re.DOTALL)
+#         description = description_search.group(1).strip() if description_search else "No description provided"
         
-        poses.append({'title': title, 'description': description})
-    return poses
+#         poses.append({'title': title, 'description': description})
+#     return poses
 
 # def parse_cohere_text_to_poses(text):
 #     l_1 = text.split(":", 1)

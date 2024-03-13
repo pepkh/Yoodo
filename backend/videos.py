@@ -1,14 +1,20 @@
 import requests
 import recommendations
 import cohere
+api_key = "AIzaSyCASxWtiCMSsTb1Z63268R9341midscYb4"
+cohere_api_key = "rrtLFlHZgdlrIJLMb1svB8Khu57ft5aljM34Bizi"
+
 COHERE_KEY = "rrtLFlHZgdlrIJLMb1svB8Khu57ft5aljM34Bizi"
 co = cohere.Client(COHERE_KEY)
+
 def generate_text(prompt, temp=0):
     response = co.chat(
         message=prompt,
         temperature=temp,
         stream=True)
+
     generated_text = []
+
     for event in response:
         if event.event_type == "text-generation":
             generated_text.append(event.text)
@@ -17,7 +23,7 @@ def generate_text(prompt, temp=0):
 def get_embedded_link(video_link):
     return video_link.replace("/watch?v=", "/embed/")
 
-def search_youtube_videos(api_key, keywords, max_results=5):
+def search_youtube_videos(api_key, keywords, max_results=1):
     url = "https://www.googleapis.com/youtube/v3/search"
     params = {
         "part": "snippet",
@@ -31,6 +37,7 @@ def search_youtube_videos(api_key, keywords, max_results=5):
     data = response.json()
     
     # Extract video information from the response
+    print("video dataaaaaaa")
     video_links = []
     for item in data.get("items", []):
         video_id = item["id"]["videoId"]
@@ -54,10 +61,9 @@ def search_youtube_videos(api_key, keywords, max_results=5):
 #     print(best_title)
 #     return best_title
 
-# def get_embedded_link(video_link):
-#     return video_link.replace("/watch?v=", "/embed/")
-# api_key = "AIzaSyBEIpSazJA-yfulAQE0IO0RsXRmQP-rOV4"
-# cohere_api_key = "rrtLFlHZgdlrIJLMb1svB8Khu57ft5aljM34Bizi"
+def get_embedded_link(video_link):
+    return video_link.replace("/watch?v=", "/embed/")
+
 # keyword1 = recommendations.first_pose
 # keyword2 = recommendations.second_pose
 # keyword3 = recommendations.third_pose
@@ -66,12 +72,12 @@ def search_youtube_videos(api_key, keywords, max_results=5):
 # print(keyword3)
 # max_results = 1
 
-# # Search for 5 videos for each keyword
-# videos1 = search_youtube_videos(api_key, keyword1, max_results)
+# Search for 5 videos for each keyword
+# video = search_youtube_videos(api_key, keyword, max_results)
 # videos2 = search_youtube_videos(api_key, keyword2, max_results)
 # videos3 = search_youtube_videos(api_key, keyword3, max_results)
 
-# url1 = get_embedded_link(videos1[0]["link"])
+# url = get_embedded_link(videos1[0]["link"])
 # url2 = get_embedded_link(videos2[0]["link"])
 # url3 = get_embedded_link(videos3[0]["link"])
 
@@ -79,5 +85,15 @@ def search_youtube_videos(api_key, keywords, max_results=5):
 # print(url2)
 # print(url3)
 
-def get_embedded_link(video_link):
-    return video_link.replace("/watch?v=", "/embed/")
+# Search and choose the best video for each keyword
+# best_video1 = choose_best_video(keyword1,videos1)
+# best_video2 = choose_best_video(keyword2,videos2)
+# best_video3 = choose_best_video(keyword3,videos3)
+
+# # Display the results
+# for i, best_video in enumerate([best_video1, best_video2, best_video3], start=1):
+#     if best_video:
+#         embedded_link = get_embedded_link(best_video['link'])
+#         print(f"The best video for Pose {i} is: {best_video['title']} - {embedded_link}")
+#     else:
+#         print(f"No videos found for Pose {i}.")
